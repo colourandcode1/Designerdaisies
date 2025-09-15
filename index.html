@@ -877,136 +877,136 @@
         }
         
         function generateDaisy() {
-    const canvas = document.getElementById('daisyCanvas');
-    const ctx = canvas.getContext('2d');
-    const centerX = canvas.width / 2;
-    const centerY = canvas.height / 2;
-    const maxRadius = 220;
-    
-    // Clear canvas with clean white background
-    ctx.fillStyle = '#ffffff';
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-    
-    // Get all ratings
-    const ratings = {};
-    document.querySelectorAll('.rating-slider').forEach(slider => {
-        ratings[slider.dataset.skill] = parseInt(slider.value);
-    });
-    
-    // Define skills and their positions (angles) - updated to match your original skills
-    const skills = [
-        { key: 'product-customer', label: 'Product & Customer\nKnowledge' },
-        { key: 'usability-testing', label: 'Usability Testing\n& Feedback' },
-        { key: 'emerging-tech', label: 'Emerging\nTechnologies' },
-        { key: 'design-thinking', label: 'Design Thinking\n& Ideation' },
-        { key: 'research', label: 'Research' },
-        { key: 'wireframing', label: 'Wireframing\n& Prototyping' },
-        { key: 'system-design', label: 'System\nDesign' },
-        { key: 'interaction-design', label: 'Interaction\nDesign' },
-        { key: 'visual-design', label: 'Visual\nDesign' },
-        { key: 'design-systems', label: 'Design\nSystems' },
-        { key: 'product-teams', label: 'Working in\nProduct Teams' },
-        { key: 'leadership', label: 'Leadership' }
-    ];
-    
-    const angleStep = (2 * Math.PI) / skills.length;
-    
-    // Draw subtle concentric circles
-    ctx.strokeStyle = '#e5e7eb';
-    ctx.lineWidth = 0.8;
-    for (let i = 2; i <= 10; i += 2) {
-        const radius = (maxRadius * i) / 10;
-        ctx.beginPath();
-        ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
-        ctx.stroke();
-    }
-    
-    // Draw radial spokes
-    ctx.strokeStyle = '#e5e7eb';
-    ctx.lineWidth = 0.8;
-    skills.forEach((skill, index) => {
-        const angle = index * angleStep - Math.PI / 2;
-        const endX = centerX + Math.cos(angle) * maxRadius;
-        const endY = centerY + Math.sin(angle) * maxRadius;
-        
-        ctx.beginPath();
-        ctx.moveTo(centerX, centerY);
-        ctx.lineTo(endX, endY);
-        ctx.stroke();
-    });
-    
-    // Calculate points for the polygon
-    const points = [];
-    skills.forEach((skill, index) => {
-        const rating = ratings[skill.key] || 5;
-        const angle = index * angleStep - Math.PI / 2;
-        const radius = (maxRadius * rating) / 10;
-        const x = centerX + Math.cos(angle) * radius;
-        const y = centerY + Math.sin(angle) * radius;
-        points.push({ x, y, skill, rating, angle });
-    });
-    
-    // Draw the filled polygon
-    ctx.fillStyle = 'rgba(139, 126, 243, 0.2)';
-    ctx.strokeStyle = '#4c51bf';
-    ctx.lineWidth = 2;
-    ctx.beginPath();
-    points.forEach((point, index) => {
-        if (index === 0) {
-            ctx.moveTo(point.x, point.y);
-        } else {
-            ctx.lineTo(point.x, point.y);
+            const canvas = document.getElementById('daisyCanvas');
+            const ctx = canvas.getContext('2d');
+            const centerX = canvas.width / 2;
+            const centerY = canvas.height / 2;
+            const maxRadius = 220;
+            
+            // Clear canvas with clean white background
+            ctx.fillStyle = '#ffffff';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Get all ratings
+            const ratings = {};
+            document.querySelectorAll('.rating-slider').forEach(slider => {
+                ratings[slider.dataset.skill] = parseInt(slider.value);
+            });
+            
+            // Define skills and their positions (angles) - updated to match your original skills
+            const skills = [
+                { key: 'product-customer', label: 'Product & Customer\nKnowledge' },
+                { key: 'usability-testing', label: 'Usability Testing\n& Feedback' },
+                { key: 'emerging-tech', label: 'Emerging\nTechnologies' },
+                { key: 'design-thinking', label: 'Design Thinking\n& Ideation' },
+                { key: 'research', label: 'Research' },
+                { key: 'wireframing', label: 'Wireframing\n& Prototyping' },
+                { key: 'system-design', label: 'System\nDesign' },
+                { key: 'interaction-design', label: 'Interaction\nDesign' },
+                { key: 'visual-design', label: 'Visual\nDesign' },
+                { key: 'design-systems', label: 'Design\nSystems' },
+                { key: 'product-teams', label: 'Working in\nProduct Teams' },
+                { key: 'leadership', label: 'Leadership' }
+            ];
+            
+            const angleStep = (2 * Math.PI) / skills.length;
+            
+            // Draw subtle concentric circles
+            ctx.strokeStyle = '#e5e7eb';
+            ctx.lineWidth = 0.8;
+            for (let i = 2; i <= 10; i += 2) {
+                const radius = (maxRadius * i) / 10;
+                ctx.beginPath();
+                ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
+                ctx.stroke();
+            }
+            
+            // Draw radial spokes
+            ctx.strokeStyle = '#e5e7eb';
+            ctx.lineWidth = 0.8;
+            skills.forEach((skill, index) => {
+                const angle = index * angleStep - Math.PI / 2;
+                const endX = centerX + Math.cos(angle) * maxRadius;
+                const endY = centerY + Math.sin(angle) * maxRadius;
+                
+                ctx.beginPath();
+                ctx.moveTo(centerX, centerY);
+                ctx.lineTo(endX, endY);
+                ctx.stroke();
+            });
+            
+            // Calculate points for the polygon
+            const points = [];
+            skills.forEach((skill, index) => {
+                const rating = ratings[skill.key] || 5;
+                const angle = index * angleStep - Math.PI / 2;
+                const radius = (maxRadius * rating) / 10;
+                const x = centerX + Math.cos(angle) * radius;
+                const y = centerY + Math.sin(angle) * radius;
+                points.push({ x, y, skill, rating, angle });
+            });
+            
+            // Draw the filled polygon
+            ctx.fillStyle = 'rgba(139, 126, 243, 0.2)';
+            ctx.strokeStyle = '#4c51bf';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            points.forEach((point, index) => {
+                if (index === 0) {
+                    ctx.moveTo(point.x, point.y);
+                } else {
+                    ctx.lineTo(point.x, point.y);
+                }
+            });
+            ctx.closePath();
+            ctx.fill();
+            ctx.stroke();
+            
+            // Draw simple data points
+            points.forEach((point) => {
+                ctx.fillStyle = '#4c51bf';
+                ctx.beginPath();
+                ctx.arc(point.x, point.y, 4, 0, 2 * Math.PI);
+                ctx.fill();
+            });
+            
+            // Draw clean skill labels
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.font = '14px Inter, Arial';
+            ctx.fillStyle = '#6b7280';
+            
+            skills.forEach((skill, index) => {
+                const angle = index * angleStep - Math.PI / 2;
+                const labelRadius = maxRadius + 60;
+                const x = centerX + Math.cos(angle) * labelRadius;
+                const y = centerY + Math.sin(angle) * labelRadius;
+                
+                const lines = skill.label.split('\n');
+                lines.forEach((line, lineIndex) => {
+                    const lineY = y + (lineIndex * 16) - ((lines.length - 1) * 8);
+                    ctx.fillText(line, x, lineY);
+                });
+            });
+            
+            // Simple center point
+            ctx.fillStyle = '#f3f4f6';
+            ctx.strokeStyle = '#d1d5db';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, 8, 0, 2 * Math.PI);
+            ctx.fill();
+            ctx.stroke();
+            
+            // Show the daisy
+            document.getElementById('daisyContainer').style.display = 'block';
+            
+            // Generate summary
+            generateSummary(ratings, skills);
+            
+            // Scroll to results
+            document.getElementById('daisyContainer').scrollIntoView({ behavior: 'smooth' });
         }
-    });
-    ctx.closePath();
-    ctx.fill();
-    ctx.stroke();
-    
-    // Draw simple data points
-    points.forEach((point) => {
-        ctx.fillStyle = '#4c51bf';
-        ctx.beginPath();
-        ctx.arc(point.x, point.y, 4, 0, 2 * Math.PI);
-        ctx.fill();
-    });
-    
-    // Draw clean skill labels
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
-    ctx.font = '14px Inter, Arial';
-    ctx.fillStyle = '#6b7280';
-    
-    skills.forEach((skill, index) => {
-        const angle = index * angleStep - Math.PI / 2;
-        const labelRadius = maxRadius + 60;
-        const x = centerX + Math.cos(angle) * labelRadius;
-        const y = centerY + Math.sin(angle) * labelRadius;
-        
-        const lines = skill.label.split('\n');
-        lines.forEach((line, lineIndex) => {
-            const lineY = y + (lineIndex * 16) - ((lines.length - 1) * 8);
-            ctx.fillText(line, x, lineY);
-        });
-    });
-    
-    // Simple center point
-    ctx.fillStyle = '#f3f4f6';
-    ctx.strokeStyle = '#d1d5db';
-    ctx.lineWidth = 2;
-    ctx.beginPath();
-    ctx.arc(centerX, centerY, 8, 0, 2 * Math.PI);
-    ctx.fill();
-    ctx.stroke();
-    
-    // Show the daisy
-    document.getElementById('daisyContainer').style.display = 'block';
-    
-    // Generate summary
-    generateSummary(ratings, skills);
-    
-    // Scroll to results
-    document.getElementById('daisyContainer').scrollIntoView({ behavior: 'smooth' });
-}
         
         function generateSummary(ratings, skills) {
             const strengths = [];
