@@ -5,180 +5,271 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Designer Daisy Assessment</title>
     <style>
+        /* Streamline-inspired design tokens */
+        :root {
+            --background: 0 0% 100%;
+            --foreground: 240 10% 4%;
+            --card: 0 0% 100%;
+            --card-foreground: 240 10% 4%;
+            --popover: 0 0% 100%;
+            --popover-foreground: 240 10% 4%;
+            --primary: 240 10% 4%;
+            --primary-foreground: 0 0% 100%;
+            --secondary: 0 0% 96%;
+            --secondary-foreground: 0 0% 9%;
+            --muted: 0 0% 96%;
+            --muted-foreground: 0 0% 49%;
+            --accent: 0 0% 96%;
+            --accent-foreground: 0 0% 9%;
+            --destructive: 0 84.2% 60.2%;
+            --destructive-foreground: 0 0% 100%;
+            --border: 0 0% 0%/.09;
+            --input: 0 0% 89.8%;
+            --ring: 240 10% 4%;
+            --radius: 0.5rem;
+            --sand-50: 0 0% 95%;
+            --sand-100: 45 16% 92%;
+            --sand-600: 22 10% 57%;
+            --sand-700: 22 5% 52%;
+            --mint: 162 17% 86%;
+            --mint-50: 108 12% 92%;
+        }
+
+        * {
+            border-color: hsl(var(--border));
+        }
+
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             margin: 0;
-            padding: 20px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 1.5rem;
+            background-color: hsl(var(--muted));
             min-height: 100vh;
-            color: #333;
+            color: hsl(var(--foreground));
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
         }
         
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            background: white;
-            border-radius: 20px;
-            padding: 40px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            background: hsl(var(--card));
+            border-radius: var(--radius);
+            padding: 3rem;
+            border: 1px solid hsl(var(--border));
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
         }
         
         h1 {
             text-align: center;
-            color: #4a5568;
-            margin-bottom: 10px;
-            font-size: 2.5em;
+            color: hsl(var(--foreground));
+            margin-bottom: 0.5rem;
+            font-size: 2.5rem;
+            font-weight: 700;
+            letter-spacing: -0.025em;
         }
         
         .subtitle {
             text-align: center;
-            color: #718096;
-            margin-bottom: 40px;
-            font-size: 1.2em;
+            color: hsl(var(--muted-foreground));
+            margin-bottom: 2.5rem;
+            font-size: 1.125rem;
             max-width: 600px;
             margin-left: auto;
             margin-right: auto;
+            line-height: 1.6;
         }
         
         .controls-bar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 30px;
+            margin-bottom: 2rem;
             flex-wrap: wrap;
-            gap: 15px;
+            gap: 1rem;
         }
         
         .view-toggle {
-            display: flex;
-            background: #f7fafc;
-            border-radius: 25px;
-            padding: 4px;
-            border: 1px solid #e2e8f0;
+            display: inline-flex;
+            height: 2.5rem;
+            align-items: center;
+            justify-content: center;
+            border-radius: var(--radius);
+            background-color: hsl(var(--muted));
+            padding: 0.25rem;
+            border: 1px solid hsl(var(--border));
         }
         
         .view-toggle button {
-            background: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            white-space: nowrap;
+            border-radius: calc(var(--radius) - 2px);
+            padding: 0.5rem 1rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: all 150ms ease;
+            background: transparent;
             border: none;
-            padding: 8px 16px;
-            border-radius: 20px;
             cursor: pointer;
-            transition: all 0.2s ease;
-            font-size: 0.9em;
+            color: hsl(var(--muted-foreground));
         }
         
         .view-toggle button.active {
-            background: #4299e1;
-            color: white;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            background-color: hsl(var(--background));
+            color: hsl(var(--foreground));
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
         }
         
         .quick-fill {
             display: flex;
-            gap: 10px;
+            gap: 0.5rem;
             align-items: center;
         }
         
+        .quick-fill span {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: hsl(var(--muted-foreground));
+        }
+        
         .quick-fill button {
-            background: #e2e8f0;
-            border: none;
-            padding: 6px 12px;
-            border-radius: 15px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: var(--radius);
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: all 150ms ease;
+            background-color: hsl(var(--secondary));
+            color: hsl(var(--secondary-foreground));
+            border: 1px solid hsl(var(--border));
+            padding: 0.375rem 0.75rem;
             cursor: pointer;
-            font-size: 0.8em;
-            transition: all 0.2s ease;
         }
         
         .quick-fill button:hover {
-            background: #cbd5e0;
+            background-color: hsl(var(--accent));
         }
         
         .assessment-form {
             display: grid;
-            gap: 30px;
+            gap: 2rem;
         }
         
         .assessment-form.compact {
-            gap: 15px;
+            gap: 1rem;
         }
         
         .category {
-            background: #f7fafc;
-            border-radius: 15px;
-            padding: 25px;
-            border-left: 5px solid #4299e1;
-            transition: all 0.3s ease;
+            border-radius: var(--radius);
+            border: 1px solid hsl(var(--border));
+            background-color: hsl(var(--card));
+            padding: 1.5rem;
+            transition: all 150ms ease;
+            border-left: 1px solid hsl(var(--border)) !important;
         }
         
         .category.compact {
-            padding: 15px;
+            padding: 1rem;
         }
         
         .category h2 {
-            color: #2d3748;
-            margin-bottom: 20px;
-            font-size: 1.4em;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            color: hsl(var(--foreground));
+            margin-bottom: 1.5rem;
+            font-size: 1.25rem;
+            font-weight: 600;
+            letter-spacing: -0.025em;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .category.compact {
+            padding: 1rem;
+        }
+        
+        .category[style*="border-left-color: #e53e3e"] {
+            border-left: 3px solid hsl(0 84.2% 60.2%);
+        }
+        
+        .category[style*="border-left-color: #38a169"] {
+            border-left: 3px solid hsl(142.1 76.2% 36.3%);
+        }
+        
+        .category[style*="border-left-color: #d69e2e"] {
+            border-left: 3px solid hsl(47.9 95.8% 53.1%);
+        }
+        
+        .category h2 {
+            color: hsl(var(--foreground));
+            margin-bottom: 1.5rem;
+            font-size: 1.25rem;
+            font-weight: 600;
+            letter-spacing: -0.025em;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
         
         .category-average {
-            background: #4299e1;
-            color: white;
-            padding: 4px 8px;
-            border-radius: 12px;
-            font-size: 0.8em;
-            font-weight: normal;
+            display: inline-flex;
+            align-items: center;
+            border-radius: 9999px;
+            background-color: hsl(var(--primary));
+            color: hsl(var(--primary-foreground));
+            padding: 0.125rem 0.5rem;
+            font-size: 0.75rem;
+            font-weight: 600;
         }
         
         .skill-item {
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            padding: 15px;
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            transition: all 0.2s ease;
+            align-items: flex-start;
+            margin-bottom: 1.5rem;
+            padding: 1.5rem;
+            background-color: hsl(var(--background));
+            border-radius: var(--radius);
+            border: 1px solid hsl(var(--border));
+            transition: all 150ms ease;
         }
         
         .skill-item:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
         }
         
         .skill-item.compact {
-            margin-bottom: 10px;
-            padding: 10px;
+            margin-bottom: 0.75rem;
+            padding: 1rem;
         }
         
         .skill-label {
-            font-weight: 500;
-            color: #2d3748;
+            font-weight: 600;
+            color: hsl(var(--foreground));
             flex: 1;
-            margin-right: 20px;
+            margin-right: 1.5rem;
+            font-size: 1rem;
+            line-height: 1.5;
         }
         
         .skill-description {
-            font-size: 0.9em;
-            color: #718096;
-            margin-top: 5px;
-            line-height: 1.4;
+            font-size: 0.875rem;
+            color: hsl(var(--muted-foreground));
+            margin-top: 0.5rem;
+            line-height: 1.6;
         }
         
         .skill-description ul {
-            margin: 8px 0 0 0;
-            padding-left: 18px;
+            margin: 0.75rem 0 0 0;
+            padding-left: 1.25rem;
             list-style-type: disc;
         }
         
         .skill-description li {
-            margin-bottom: 3px;
-            color: #718096;
+            margin-bottom: 0.25rem;
+            color: hsl(var(--muted-foreground));
             display: list-item;
         }
         
@@ -189,210 +280,220 @@
         .rating-controls {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 1rem;
+            flex-shrink: 0;
         }
         
         .rating-slider {
-            width: 200px;
-            height: 8px;
-            border-radius: 4px;
-            background: #e2e8f0;
+            width: 12rem;
+            height: 0.375rem;
+            border-radius: 9999px;
+            background: hsl(var(--input));
             outline: none;
             appearance: none;
-            transition: all 0.2s ease;
+            transition: all 150ms ease;
         }
         
         .rating-slider::-webkit-slider-thumb {
             appearance: none;
-            width: 20px;
-            height: 20px;
+            width: 1.25rem;
+            height: 1.25rem;
             border-radius: 50%;
-            background: #4299e1;
+            background: hsl(var(--primary));
             cursor: pointer;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-            transition: all 0.2s ease;
+            border: 2px solid hsl(var(--background));
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            transition: all 150ms ease;
         }
         
         .rating-slider::-webkit-slider-thumb:hover {
-            transform: scale(1.1);
+            transform: scale(1.05);
         }
         
         .rating-slider::-moz-range-thumb {
-            width: 20px;
-            height: 20px;
+            width: 1.25rem;
+            height: 1.25rem;
             border-radius: 50%;
-            background: #4299e1;
+            background: hsl(var(--primary));
             cursor: pointer;
-            border: none;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            border: 2px solid hsl(var(--background));
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
         }
         
         .rating-value {
-            background: #4299e1;
-            color: white;
-            padding: 8px 12px;
-            border-radius: 20px;
-            font-weight: bold;
-            min-width: 30px;
-            text-align: center;
-            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: var(--radius);
+            background-color: hsl(var(--primary));
+            color: hsl(var(--primary-foreground));
+            padding: 0.5rem 0.75rem;
+            font-weight: 600;
+            min-width: 2.5rem;
+            font-size: 0.875rem;
+            transition: all 150ms ease;
         }
         
-        .rating-value.low { background: #e53e3e; }
-        .rating-value.medium { background: #d69e2e; }
-        .rating-value.high { background: #38a169; }
-        .rating-value.expert { background: #553c9a; }
+        .rating-value.low { 
+            background-color: hsl(0 84.2% 60.2%); 
+            color: hsl(0 0% 98%);
+        }
+        .rating-value.medium { 
+            background-color: hsl(47.9 95.8% 53.1%); 
+            color: hsl(222.2 84% 4.9%);
+        }
+        .rating-value.high { 
+            background-color: hsl(142.1 76.2% 36.3%); 
+            color: hsl(0 0% 98%);
+        }
+        .rating-value.expert { 
+            background-color: hsl(262.1 83.3% 57.8%); 
+            color: hsl(0 0% 98%);
+        }
         
         .generate-btn {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: var(--radius);
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 150ms ease;
+            background-color: hsl(var(--primary));
+            color: hsl(var(--primary-foreground));
             border: none;
-            padding: 15px 40px;
-            border-radius: 30px;
-            font-size: 1.2em;
-            font-weight: bold;
+            padding: 1rem 2rem;
             cursor: pointer;
-            margin: 40px auto;
+            margin: 2.5rem auto;
             display: block;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
         }
         
         .generate-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            background-color: hsl(var(--primary) / 0.9);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
         }
         
         .generate-btn:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-            transform: none;
-        }
-        
-        .action-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin: 20px 0;
+            pointer-events: none;
+            opacity: 0.5;
         }
         
         .action-btn {
-            background: #f7fafc;
-            border: 1px solid #e2e8f0;
-            padding: 10px 20px;
-            border-radius: 20px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: var(--radius);
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: all 150ms ease;
+            background-color: hsl(var(--secondary));
+            color: hsl(var(--secondary-foreground));
+            border: 1px solid hsl(var(--border));
+            padding: 0.5rem 1rem;
             cursor: pointer;
-            transition: all 0.2s ease;
-            font-size: 0.9em;
         }
         
         .action-btn:hover {
-            background: #e2e8f0;
+            background-color: hsl(var(--accent));
         }
         
         .daisy-container {
-            margin-top: 40px;
+            margin-top: 2.5rem;
             text-align: center;
             display: none;
         }
         
         #daisyCanvas {
-            border: 2px solid #e2e8f0;
-            border-radius: 20px;
-            background: white;
-            margin: 20px auto;
+            border: 1px solid hsl(var(--border));
+            border-radius: var(--radius);
+            background: hsl(var(--background));
+            margin: 1.5rem auto;
             display: block;
             max-width: 100%;
-            cursor: crosshair;
         }
         
         .canvas-controls {
-            margin: 15px 0;
+            margin: 1rem 0;
             display: flex;
             justify-content: center;
-            gap: 15px;
+            gap: 0.75rem;
         }
         
         .results-summary {
-            background: #f7fafc;
-            border-radius: 15px;
-            padding: 25px;
-            margin-top: 30px;
+            background-color: hsl(var(--card));
+            border-radius: var(--radius);
+            border: 1px solid hsl(var(--border));
+            padding: 1.5rem;
+            margin-top: 2rem;
             text-align: left;
         }
         
         .results-summary h3 {
-            color: #2d3748;
-            margin-bottom: 15px;
+            color: hsl(var(--foreground));
+            margin-bottom: 1rem;
+            font-size: 1.25rem;
+            font-weight: 600;
         }
         
         .strength-weakness {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            margin-top: 20px;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
         }
         
         .strength, .weakness {
-            background: white;
-            padding: 15px;
-            border-radius: 10px;
+            background-color: hsl(var(--background));
+            border-radius: var(--radius);
+            border: 1px solid hsl(var(--border));
+            padding: 1rem;
         }
         
         .strength {
-            border-left: 4px solid #38a169;
+            border-left: 3px solid hsl(142.1 76.2% 36.3%);
         }
         
         .weakness {
-            border-left: 4px solid #e53e3e;
+            border-left: 3px solid hsl(0 84.2% 60.2%);
         }
         
         .progress-indicator {
-            background: #e2e8f0;
-            height: 8px;
-            border-radius: 4px;
-            margin: 20px 0;
+            background-color: hsl(var(--muted));
+            height: 0.375rem;
+            border-radius: 9999px;
+            margin: 1.5rem 0;
             overflow: hidden;
+            border: 1px solid hsl(var(--border));
         }
         
         .progress-bar {
-            background: linear-gradient(90deg, #667eea, #764ba2);
+            background-color: hsl(var(--primary));
             height: 100%;
             width: 0%;
-            transition: width 0.3s ease;
+            transition: width 300ms ease;
         }
         
         .instruction-text {
-            background: #e6fffa;
-            border: 1px solid #38b2ac;
-            border-radius: 10px;
-            padding: 15px;
-            margin-bottom: 30px;
-            color: #234e52;
-        }
-        
-        .tooltip {
-            position: absolute;
-            background: #2d3748;
-            color: white;
-            padding: 8px 12px;
-            border-radius: 6px;
-            font-size: 0.8em;
-            pointer-events: none;
-            z-index: 1000;
-            display: none;
+            background-color: hsl(var(--mint-50));
+            border: 1px solid hsl(var(--mint));
+            border-radius: var(--radius);
+            padding: 1rem;
+            margin-bottom: 2rem;
+            color: hsl(var(--foreground));
+            font-size: 0.875rem;
+            line-height: 1.6;
         }
         
         @media (max-width: 768px) {
             .container {
-                padding: 20px;
+                padding: 1.5rem;
             }
             
             .skill-item {
                 flex-direction: column;
                 align-items: stretch;
-                gap: 15px;
+                gap: 1rem;
             }
             
             .rating-controls {
@@ -406,6 +507,10 @@
             .controls-bar {
                 flex-direction: column;
                 align-items: stretch;
+            }
+            
+            h1 {
+                font-size: 2rem;
             }
         }
     </style>
@@ -427,10 +532,6 @@
             </div>
             
             <div class="quick-fill">
-                <span>Quick Fill:</span>
-                <button onclick="quickFill('beginner')">Beginner (3)</button>
-                <button onclick="quickFill('intermediate')">Intermediate (6)</button>
-                <button onclick="quickFill('advanced')">Advanced (8)</button>
                 <button onclick="resetAll()">Reset All</button>
             </div>
         </div>
@@ -628,7 +729,7 @@
             </div>
             
             <!-- Behaviors Category -->
-            <div class="category" style="border-left-color: #d69e2e;">
+            <div class="category">
                 <h2>🤝 Behaviors <span class="category-average" id="behaviorsAvg">0.0</span></h2>
                 
                 <div class="skill-item">
@@ -645,24 +746,6 @@
                     </div>
                     <div class="rating-controls">
                         <input type="range" min="1" max="10" value="5" class="rating-slider" data-skill="product-teams" data-category="behaviors">
-                        <div class="rating-value">5</div>
-                    </div>
-                </div>
-                
-                <div class="skill-item">
-                    <div>
-                        <div class="skill-label">Communications & Feedback</div>
-                        <div class="skill-description">Clearly articulate design rationale, process, and decisions, while fostering open feedback, critique, and storytelling across teams.
-                            <ul>
-                                <li>Design critique and reviews</li>
-                                <li>Retrospectives and giving feedback</li>
-                                <li>Supporting peers and teams</li>
-                                <li>Storytelling and influencing</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="rating-controls">
-                        <input type="range" min="1" max="10" value="5" class="rating-slider" data-skill="communications" data-category="behaviors">
                         <div class="rating-value">5</div>
                     </div>
                 </div>
@@ -701,8 +784,6 @@
             <div class="results-summary" id="resultsSummary"></div>
         </div>
     </div>
-    
-    <div class="tooltip" id="tooltip"></div>
     
     <script>
         let currentView = 'detailed';
@@ -760,13 +841,6 @@
                 slider.value = value;
                 const valueDisplay = slider.parentElement.querySelector('.rating-value');
                 valueDisplay.textContent = value;
-                
-                // Update color
-                valueDisplay.className = 'rating-value';
-                if (value <= 3) valueDisplay.classList.add('low');
-                else if (value <= 6) valueDisplay.classList.add('medium');
-                else if (value <= 8) valueDisplay.classList.add('high');
-                else valueDisplay.classList.add('expert');
             });
             
             updateProgress();
@@ -778,7 +852,6 @@
                 slider.value = 5;
                 const valueDisplay = slider.parentElement.querySelector('.rating-value');
                 valueDisplay.textContent = '5';
-                valueDisplay.className = 'rating-value medium';
             });
             
             updateProgress();
